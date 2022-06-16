@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
-    <title>{% block title %} {% endblock title %} Auth News</title>
+    <title>Auth News</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg " style="background-color: #8B5CF6;">
@@ -21,7 +21,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#" style="color: white">Home</a>
+              <a class="nav-link active" aria-current="page" href="/" style="color: white">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#about_us" style="color: rgb(228, 224, 224);">About Us</a>
@@ -39,6 +39,84 @@
         </div>
       </div>
     </nav>
+
+    {% if message!="" %}
+      <div class="alert alert-success alter-dismissable fade show" role="alert">
+        {{ message }}
+        <a href="/"><button type="button" class="btn btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="myfunc()"></button></a>
+      </div>
+    {% endif %}
+
+    <div class="container">
+      <div class="flex flex-col text-center w-full mt-3">
+        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Let's Make The World, Rumors Free</h1>
+      </div>
+      <div id="carouselExampleCaptions" class="carousel slide relative" data-bs-ride="carousel">
+        <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
+          <button
+            type="button"
+            data-bs-target="#carouselExampleCaptions"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleCaptions"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleCaptions"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+          ></button>
+        </div>
+        <div class="carousel-inner relative w-full overflow-hidden">
+          <div class="carousel-item active relative float-left w-full">
+            <img src="https://source.unsplash.com/random/900x250/?newspaper,news" class="block w-full" alt="..."/>
+            <!-- <div class="carousel-caption hidden md:block absolute text-center">
+              <h5 class="text-xl">First slide label</h5>
+              <p>Some representative placeholder content for the first slide.</p>
+            </div> -->
+          </div>
+          <div class="carousel-item relative float-left w-full">
+            <img src="https://source.unsplash.com/random/900x255/?newspaper,news" class="block w-full" alt="..."/>
+            <!-- <div class="carousel-caption hidden md:block absolute text-center">
+              <h5 class="text-xl">Second slide label</h5>
+              <p>Some representative placeholder content for the second slide.</p>
+            </div> -->
+          </div>
+          <div class="carousel-item relative float-left w-full">
+            <img src="https://source.unsplash.com/random/910x250/?newspaper,news" class="block w-full" alt="..."/>
+            <!-- <div class="carousel-caption hidden md:block absolute text-center">
+              <h5 class="text-xl">Third slide label</h5>
+              <p>Some representative placeholder content for the third slide.</p>
+            </div> -->
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
+          type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
+          type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
 
     <div class="container" id="about_us">
       <section class="text-gray-600 body-font">
@@ -74,9 +152,12 @@
           <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
             <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Fake News Detection</h1>
             <p class="mb-8">Our new era where the mobile internet is ubiquitous, every person depends on various resources which are available online for news. Due to the increase in use of social media news can be shared rapidly among various number of users within a very short duration. The spread of fake news has bad and far-reaching results like the creation of biased opinions which can lead to confusion and misunderstanding among various groups. Moreover, people who are spreading fake news use appealing news headlines to generate revenue using advertisements via click-baits. So it is important to detect fake news and stop spreading it.</p>
-            <div class="flex justify-center">
-              <button class="inline-flex text-white bg-purple-500 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 rounded text-lg">Fake News Detector</button>
-            </div>
+            <form action="/" method="POST">
+              <div class="mb-3">
+                <input type="text" class="form-control" id="news" name="news" placeholder="Enter news title">
+              </div>
+              <button type="submit" class="btn btn-primary" style="background-color: #8B5CF6;">Fake News Detector</button>
+            </form>
           </div>
         </div>
       </section>
@@ -155,7 +236,7 @@
                 </div>
               </div>
               <div class="p-2 w-full">
-                <button class="flex mx-auto text-white bg-purple-500 border-0 py-2 px-8 focus:outline-none hover:bg-purple-600 rounded text-lg">Submit</button>
+                <button type="submit" class="btn btn-primary" style="background-color: #8B5CF6;" onclick="window.location.reload();">Submit</button>
               </div>
               <div class="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
                 <a class="text-purple-500">fake_news_detection@gmail.com</a>
@@ -189,6 +270,12 @@
         </div>
       </section>
     </div>
+
+    <script>
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+      }
+      </script>
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   </body>
